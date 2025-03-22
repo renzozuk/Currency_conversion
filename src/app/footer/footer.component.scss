@@ -1,0 +1,14 @@
+@use '../variables.scss' as v;
+
+.footer {
+    padding: 7px 0;
+    background-color: v.$primary-color;
+}
+
+.footer-text {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: 14px;
+    color: v.$light-color;
+}

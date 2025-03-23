@@ -1,15 +1,14 @@
-@use '../variables.scss' as v;
+@use '../../variables.scss' as v;
 
-.header {
-    padding: 14px 0;
+.footer {
+    padding: 7px 0;
     background-color: v.$primary-color;
 }
 
-.header-text {
+.footer-text {
     margin: 0;
     padding: 0;
     text-align: center;
-    font-weight: 650;
-    font-size: 28px;
+    font-size: 14px;
     color: v.$light-color;
 }

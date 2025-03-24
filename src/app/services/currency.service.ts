@@ -7,11 +7,20 @@ import { Observable } from 'rxjs';
 })
 export class CurrencyService {
 
-  private apiUrl = "https://api.nbp.pl/api/exchangerates/rates/a/";
+  private apiUrl = "https://api.nbp.pl/api/exchangerates/rates/";
+  private currenciesAddress = "currencies.json";
 
   constructor(private client: HttpClient) { }
 
-  getResponse(currency: string): Observable<any> {
-    return this.client.get(this.apiUrl + currency);
+  getResponse(group: string, currency: string): Observable<any> {
+    return this.client.get(`${this.apiUrl}${group}/${currency}`);
+  }
+
+  getDatedResponse(group: string, currency: string, date: string): Observable<any> {
+    return this.client.get(`${this.apiUrl}${group}/${currency}/${date}`);
+  }
+
+  getCurrencies(): Observable<{currenciesA: string[], currenciesB: string[]}> {
+    return this.client.get<{currenciesA: string[], currenciesB: string[]}>(this.currenciesAddress);
   }
 }

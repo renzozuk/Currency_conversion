@@ -2,15 +2,16 @@
     <p class="instruction-text">Selecione as moedas que deseja fazer a conversão.</p>
     <div class="selects">
         <select class="currency-selector" [(ngModel)]="selectedOriginCurrency">
-            @for (item of currencies; track item) {
+            @for (item of originCurrencies(); track item) {
                 <option class="currency-option" [value]="item">{{ item }}</option>
             }
         </select>
         <select class="currency-selector" [(ngModel)]="selectedDestinyCurrency">
-            @for (item of currencies; track item) {
+            @for (item of destinyCurrencies(); track item) {
                 <option class="currency-option" [value]="item">{{ item }}</option>
             }
         </select>
     </div>
    <p class="parity-text">{{parityText()}}</p>
+   <p class="effective-date-text">{{effectiveDateText()}}</p>
 </div>

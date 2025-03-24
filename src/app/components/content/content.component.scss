@@ -1,10 +1,14 @@
 @use '../../variables.scss' as v;
 
-.instruction-text, .parity-text {
-    font-size: 20px;
+.instruction-text, .parity-text, .effective-date-text {
     font-weight: 550;
     text-align: center;
     color: v.$dark-color;
+}
+
+.instruction-text {
+    font-size: 22px;
+    margin: 20px 0;
 }
 
 .selects {
@@ -31,4 +35,16 @@
 
 .currency-selector option:hover {
     background-color: aqua;
+}
+
+.parity-text, .effective-date-text {
+    font-size: 20px;
+}
+
+.parity-text {
+    margin: 20px 0 10px;
+}
+
+.effective-date-text {
+    margin: 10px 0;
 }

@@ -7,8 +7,9 @@
 }
 
 .instruction-text {
-    font-size: 22px;
     margin: 20px 0;
+    padding: 0 20px;
+    font-size: 22px;
 }
 
 .selects {
@@ -35,6 +36,20 @@
 
 .currency-selector option:hover {
     background-color: aqua;
+}
+
+.currency-selector::-webkit-scrollbar {
+    width: 7px;
+}
+
+.currency-selector::-webkit-scrollbar-track {
+    background-color: v.$light-color-1;
+    border-radius: 7px;
+}
+
+.currency-selector::-webkit-scrollbar-thumb {
+    background-color: v.$dark-color-1;
+    border-radius: 7px;
 }
 
 .parity-text, .effective-date-text {

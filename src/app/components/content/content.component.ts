@@ -11,6 +11,8 @@ import { forkJoin } from 'rxjs';
   styleUrl: './content.component.scss'
 })
 export class ContentComponent {
+
+  @Input() languageSelected: any;
   
   currenciesA: string[] = [];
   currenciesB: string[] = [];
@@ -22,8 +24,11 @@ export class ContentComponent {
   @Input() selectedDestinyCurrency: any = ''; 
 
   parity: any;
-  parityText: any = signal("Paridade ___/___:");
+  parityTextFirstPart: any = signal("");
+  parityTextSecondPart: any = signal("");
 
+  effectiveDateFirstPart: any = signal("");
+  effectiveDateSecondPart: any = signal("");
   effectiveDateText: any = signal("");
 
   constructor (private service: CurrencyService) {}
@@ -47,11 +52,13 @@ export class ContentComponent {
   }
 
   ngDoCheck() {
+    this.parityTextFirstPart.set(this.languageSelected() === `br` ? `Paridade ${this.selectedOriginCurrency.length === 3 ? this.selectedOriginCurrency : `___`}/${this.selectedDestinyCurrency.length === 3 ? this.selectedDestinyCurrency : `___`}: ` : `${this.selectedOriginCurrency.length === 3 ? this.selectedOriginCurrency : `___`}/${this.selectedDestinyCurrency.length === 3 ? this.selectedDestinyCurrency : `___`} exchange rate: `);
+    this.effectiveDateFirstPart.set(this.languageSelected() === `br` ? `Data da consulta: ` : `Consultation date: `)
     this.originCurrencies.set(this.currenciesA.concat(this.currenciesB).filter(currency => currency !== this.selectedDestinyCurrency).sort());
     this.destinyCurrencies.set(this.currenciesA.concat(this.currenciesB).filter(currency => currency !== this.selectedOriginCurrency).sort());
     if (this.selectedOriginCurrency.length === 3 && this.selectedDestinyCurrency.length === 3 && (this.selectedOriginCurrency !== this.previousOriginCurrency || this.selectedDestinyCurrency !== this.previousDestinyCurrency)) {
-      this.parityText.set(`Paridade ${this.selectedOriginCurrency}/${this.selectedDestinyCurrency}: carregando...`);
-      this.effectiveDateText.set("Data da consulta: carregando...");
+      this.parityTextSecondPart.set(this.languageSelected() === `br` ? `carregando...` : `loading...`);
+      this.effectiveDateSecondPart.set(this.languageSelected() === `br` ? `carregando...` : `loading...`);
       forkJoin([
         this.service.getResponse(this.currenciesA.includes(this.selectedOriginCurrency) ? "a" : "b", this.selectedOriginCurrency),
         this.service.getResponse(this.currenciesA.includes(this.selectedDestinyCurrency) ? "a" : "b", this.selectedDestinyCurrency)
@@ -69,15 +76,15 @@ export class ContentComponent {
                 this.processOriginAndDestinyData(newOriginData, newDestinyData, oldestDate);
               }, error: (err) => {
                 console.error('Error fetching data:', err);
-                this.parityText.set(`Paridade ${this.selectedOriginCurrency}/${this.selectedDestinyCurrency}: Erro ao tentar carregar a paridade.`);
+                this.parityTextSecondPart.set(this.languageSelected() === `br` ? `Erro inesperado.` : `Unexpected error.`);
               }
             });
-            this.effectiveDateText.set("");
+            this.effectiveDateSecondPart.set("");
           }
         },
         error: (err) => {
           console.error('Error fetching data:', err);
-          this.parityText.set(`Paridade ${this.selectedOriginCurrency}/${this.selectedDestinyCurrency}: Erro ao tentar carregar a paridade.`);
+          this.parityTextSecondPart.set(this.languageSelected() === `br` ? `Erro inesperado.` : `Unexpected error.`);
         }
       });
     }
@@ -93,10 +100,10 @@ export class ContentComponent {
     this.originParity.set(originData.rates[0].mid);
     this.destinyParity.set(destinyData.rates[0].mid);
 
-    const parityValue = (this.originParity() / this.destinyParity()).toFixed(4).replace(".", ",");
-    this.parityText.set(`Paridade ${this.selectedOriginCurrency}/${this.selectedDestinyCurrency}: ${parityValue}`);
+    const parityValue = (this.originParity() / this.destinyParity()).toFixed(4);
+    this.parityTextSecondPart.set(this.languageSelected() === `br` ? parityValue.replace(".", ",") : parityValue);
 
-    this.effectiveDateText.set(`Data da consulta: ${this.convertDateFormat(oldestDate)}`);
+    this.effectiveDateSecondPart.set(this.languageSelected() === `br` ? this.convertDateFormat(oldestDate) : this.convertDateFormat(oldestDate));
   }
 
   convertDateFormat(dateStr: string): string {
@@ -106,6 +113,6 @@ export class ContentComponent {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
   
-    return `${day}/${month}/${year}`;
+    return this.languageSelected() === `br` ? `${day}/${month}/${year}` : `${month}/${day}/${year}`;
   }
 }

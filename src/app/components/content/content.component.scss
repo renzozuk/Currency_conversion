@@ -6,6 +6,11 @@
     color: v.$dark-color;
 }
 
+.instruction-text::selection, .parity-text::selection, .effective-date-text::selection {
+    background-color: v.$primary-color;
+    color: v.$light-color;
+}
+
 .instruction-text {
     margin: 20px 0;
     padding: 0 20px;

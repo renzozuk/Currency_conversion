@@ -33,18 +33,63 @@
 }
 
 .language-selector {
-    width: 50px;
-    height: 50px;
+    -webkit-animation: shrink 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: shrink 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+.language-selector-hovered {
+    -webkit-animation: expand 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: expand 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    cursor: pointer;
+}
+
+.language-selector, .language-selector-hovered {
     border-radius: 50%;
     object-fit: cover;
 }
 
-.language-selector:hover {
-    width: 55px;
-    height: 55px;
-    cursor: pointer;
-}
-
 .language-selector::selection {
     background-color: v.$primary-color;
+}
+
+@-webkit-keyframes expand {
+    0% {
+        width: 50px;
+        height: 50px;
+    }
+    100% {
+        width: 55px;
+        height: 55px;
+    }
+}
+@keyframes expand {
+    0% {
+        width: 50px;
+        height: 50px;
+    }
+    100% {
+        width: 55px;
+        height: 55px;
+    }
+}
+
+@-webkit-keyframes shrink {
+    0% {
+        width: 55px;
+        height: 55px;
+    }
+    100% {
+        width: 50px;
+        height: 50px;
+    }
+}
+@keyframes shrink {
+    0% {
+        width: 55px;
+        height: 55px;
+    }
+    100% {
+        width: 50px;
+        height: 50px;
+    }
 }

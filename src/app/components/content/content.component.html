@@ -6,6 +6,7 @@
                 <option class="currency-option" [value]="item">{{ item }}</option>
             }
         </select>
+        <button class="switch-button" (mouseenter)="enterSwitchButton()" (mouseleave)="leaveSwitchButton()" (click)="switchCurrencies()"><img class="switch-image {{(isSwitchButtonHovered() ? `switch-image-hovered` : `switch-image-not-hovered`)}}" src="switch_arrow.png"/></button>
         <select class="currency-selector" [(ngModel)]="selectedDestinyCurrency">
             @for (item of destinyCurrencies(); track item) {
                 <option class="currency-option" [value]="item">{{ item }}</option>

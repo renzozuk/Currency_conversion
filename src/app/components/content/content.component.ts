@@ -21,7 +21,9 @@ export class ContentComponent {
   destinyCurrencies = signal<any[]>([]);
 
   @Input() selectedOriginCurrency: any = '';
-  @Input() selectedDestinyCurrency: any = ''; 
+  @Input() selectedDestinyCurrency: any = '';
+
+  isSwitchButtonHovered: any = signal(false);
 
   parity: any = signal(null);
   parityTextFirstPart: any = signal("");
@@ -107,9 +109,6 @@ export class ContentComponent {
   }
 
   processOriginAndDestinyData(originData: any, destinyData: any, oldestDate: string) {
-    /* this.originParity.set(originData.rates[0].mid);
-    this.destinyParity.set(destinyData.rates[0].mid); */
-
     const parityValue = (originData.rates[0].mid / destinyData.rates[0].mid).toFixed(4);
     this.parity.set(parityValue);
 
@@ -128,5 +127,22 @@ export class ContentComponent {
       month: String(date.getMonth() + 1).padStart(2, '0'),
       year: date.getFullYear()
     })
+  }
+
+  enterSwitchButton() {
+    this.isSwitchButtonHovered.set(true);
+  }
+
+  leaveSwitchButton() {
+    this.isSwitchButtonHovered.set(false);
+  }
+
+  switchCurrencies() {
+    const a = this.selectedOriginCurrency;
+    const b = this.selectedDestinyCurrency;
+
+    this.selectedOriginCurrency = b;
+    this.selectedDestinyCurrency = a;
+    console.log("test")
   }
 }

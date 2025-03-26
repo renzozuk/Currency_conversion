@@ -14,6 +14,8 @@ import { Title } from '@angular/platform-browser';
 export class HomeComponent {
   languageSelected = signal('us');
 
+  isLanguageSelectorHovered = signal(false);
+
   constructor(private titleService: Title) {}
 
   changeLanguage() {
@@ -26,5 +28,13 @@ export class HomeComponent {
 
   ngDoCheck() {
     this.titleService.setTitle(this.languageSelected() === `br` ? `Conversor de Moedas` : `Currency Conversion`)
+  }
+
+  enterLanguageSelector() {
+    this.isLanguageSelectorHovered.set(true);
+  }
+
+  leaveLanguageSelector() {
+    this.isLanguageSelectorHovered.set(false);
   }
 }

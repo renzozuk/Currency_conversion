@@ -12,3 +12,8 @@
     font-size: 14px;
     color: v.$light-color;
 }
+
+.footer-text::selection {
+    background-color: v.$light-color;
+    color: v.$primary-color;
+}

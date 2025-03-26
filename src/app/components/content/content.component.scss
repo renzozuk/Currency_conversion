@@ -1,14 +1,20 @@
 @use '../../variables.scss' as v;
 
-.instruction-text, .parity-text, .effective-date-text {
+.instruction-text, .parity-text, .effective-date-text, .source-text {
     font-weight: 550;
     text-align: center;
     color: v.$dark-color;
 }
 
+.instruction-text::selection, .parity-text::selection, .effective-date-text::selection, .source-text::selection {
+    background-color: v.$primary-color;
+    color: v.$light-color;
+}
+
 .instruction-text {
-    font-size: 22px;
     margin: 20px 0;
+    padding: 0 20px;
+    font-size: 22px;
 }
 
 .selects {
@@ -37,6 +43,20 @@
     background-color: aqua;
 }
 
+.currency-selector::-webkit-scrollbar {
+    width: 7px;
+}
+
+.currency-selector::-webkit-scrollbar-track {
+    background-color: v.$light-color-1;
+    border-radius: 7px;
+}
+
+.currency-selector::-webkit-scrollbar-thumb {
+    background-color: v.$dark-color-1;
+    border-radius: 7px;
+}
+
 .parity-text, .effective-date-text {
     font-size: 20px;
 }
@@ -45,6 +65,19 @@
     margin: 20px 0 10px;
 }
 
-.effective-date-text {
+.effective-date-text, .source-text {
     margin: 10px 0;
+}
+
+.source-text {
+    font-size: 15px;
+}
+
+.source-link {
+    color: v.$primary-color;
+    text-decoration: none;
+}
+
+.source-link:hover {
+    color: v.$primary-color-darker;
 }

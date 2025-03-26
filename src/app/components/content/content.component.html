@@ -1,5 +1,5 @@
 <div class="main-content">
-    <p class="instruction-text">Selecione as moedas que deseja fazer a conversão.</p>
+    <p class="instruction-text">{{(languageSelected() === `br` ? `Selecione as moedas que deseja fazer a conversão.` : `Select the currencies that you want to convert.`)}}</p>
     <div class="selects">
         <select class="currency-selector" [(ngModel)]="selectedOriginCurrency">
             @for (item of originCurrencies(); track item) {
@@ -12,6 +12,7 @@
             }
         </select>
     </div>
-   <p class="parity-text">{{parityText()}}</p>
-   <p class="effective-date-text">{{effectiveDateText()}}</p>
+    <p class="parity-text"><span class="parity-text-first-part">{{parityTextFirstPart()}}</span><span class="parity-text-second-part">{{parityTextSecondPart()}}</span></p>
+    <p class="effective-date-text"><span class="effective-date-text-first-part">{{effectiveDateTextFirstPart()}}</span><span class="effective-date-text-second-part">{{effectiveDateTextSecondPart()}}</span></p>
+    <p class="source-text"><span class="source-text-first-part">{{sourceTextFirstPart()}} </span><a class="source-link" href="https://nbp.pl/en/" target="_blank">{{sourceTextSecondPart()}}</a></p>
 </div>

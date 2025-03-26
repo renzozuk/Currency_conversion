@@ -13,3 +13,8 @@
     font-size: 28px;
     color: v.$light-color;
 }
+
+.header-text::selection {
+    background-color: v.$light-color;
+    color: v.$primary-color
+}

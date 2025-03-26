@@ -1,3 +1,4 @@
+@use '../../variables.scss' as v;
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 .home {
@@ -9,4 +10,41 @@
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
+}
+
+.outer-language-selector {
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+}
+
+@media (orientation: landscape) {
+    .outer-language-selector {
+        padding: 15px 20px 0;
+        justify-content: flex-end;
+    }
+}
+
+@media (orientation: portrait) {
+    .outer-language-selector {
+        padding: 15px 0 0;
+        justify-content: center;
+    }
+}
+
+.language-selector {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.language-selector:hover {
+    width: 55px;
+    height: 55px;
+    cursor: pointer;
+}
+
+.language-selector::selection {
+    background-color: v.$primary-color;
 }

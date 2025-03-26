@@ -23,21 +23,21 @@ export class ContentComponent {
   @Input() selectedOriginCurrency: any = '';
   @Input() selectedDestinyCurrency: any = ''; 
 
-  parity: any;
+  parity: any = signal(null);
   parityTextFirstPart: any = signal("");
   parityTextSecondPart: any = signal("");
 
-  effectiveDateFirstPart: any = signal("");
-  effectiveDateSecondPart: any = signal("");
-  effectiveDateText: any = signal("");
+  effectiveDate: any = signal(null);
+  effectiveDateTextFirstPart: any = signal("");
+  effectiveDateTextSecondPart: any = signal("");
+
+  sourceTextFirstPart = signal("");
+  sourceTextSecondPart = signal("");
 
   constructor (private service: CurrencyService) {}
 
   private previousOriginCurrency: any;
   private previousDestinyCurrency: any;
-
-  private originParity = signal(0);
-  private destinyParity = signal(0);
 
   ngOnInit() {
     this.service.getCurrencies().subscribe({
@@ -53,12 +53,20 @@ export class ContentComponent {
 
   ngDoCheck() {
     this.parityTextFirstPart.set(this.languageSelected() === `br` ? `Paridade ${this.selectedOriginCurrency.length === 3 ? this.selectedOriginCurrency : `___`}/${this.selectedDestinyCurrency.length === 3 ? this.selectedDestinyCurrency : `___`}: ` : `${this.selectedOriginCurrency.length === 3 ? this.selectedOriginCurrency : `___`}/${this.selectedDestinyCurrency.length === 3 ? this.selectedDestinyCurrency : `___`} exchange rate: `);
-    this.effectiveDateFirstPart.set(this.languageSelected() === `br` ? `Data da consulta: ` : `Consultation date: `)
+    this.parityTextSecondPart.set(this.parity() === null ? "" : (this.languageSelected() === `br` ? this.parity().replace(".", ",") : this.parity()));
+    
+    this.effectiveDateTextFirstPart.set(this.languageSelected() === `br` ? `Data da consulta: ` : `Consultation date: `);
+    this.effectiveDateTextSecondPart.set(this.effectiveDate() === null ? "" : this.convertDateFormat(this.effectiveDate()));
+    
     this.originCurrencies.set(this.currenciesA.concat(this.currenciesB).filter(currency => currency !== this.selectedDestinyCurrency).sort());
     this.destinyCurrencies.set(this.currenciesA.concat(this.currenciesB).filter(currency => currency !== this.selectedOriginCurrency).sort());
+
+    this.sourceTextFirstPart.set(this.languageSelected() === `br` ? `Fonte:` : `Source:`);
+    this.sourceTextSecondPart.set(this.languageSelected() === `br` ? `Banco Nacional da Polônia` : `National Bank of Poland`);
+    
     if (this.selectedOriginCurrency.length === 3 && this.selectedDestinyCurrency.length === 3 && (this.selectedOriginCurrency !== this.previousOriginCurrency || this.selectedDestinyCurrency !== this.previousDestinyCurrency)) {
       this.parityTextSecondPart.set(this.languageSelected() === `br` ? `carregando...` : `loading...`);
-      this.effectiveDateSecondPart.set(this.languageSelected() === `br` ? `carregando...` : `loading...`);
+      this.effectiveDateTextSecondPart.set(this.languageSelected() === `br` ? `carregando...` : `loading...`);
       forkJoin([
         this.service.getResponse(this.currenciesA.includes(this.selectedOriginCurrency) ? "a" : "b", this.selectedOriginCurrency),
         this.service.getResponse(this.currenciesA.includes(this.selectedDestinyCurrency) ? "a" : "b", this.selectedDestinyCurrency)
@@ -77,14 +85,16 @@ export class ContentComponent {
               }, error: (err) => {
                 console.error('Error fetching data:', err);
                 this.parityTextSecondPart.set(this.languageSelected() === `br` ? `Erro inesperado.` : `Unexpected error.`);
+                this.effectiveDateTextSecondPart.set(this.languageSelected() === `br` ? `Erro inesperado.` : `Unexpected error.`);
               }
             });
-            this.effectiveDateSecondPart.set("");
+            /* this.effectiveDateTextSecondPart.set(""); */
           }
         },
         error: (err) => {
           console.error('Error fetching data:', err);
           this.parityTextSecondPart.set(this.languageSelected() === `br` ? `Erro inesperado.` : `Unexpected error.`);
+          this.effectiveDateTextSecondPart.set(this.languageSelected() === `br` ? `Erro inesperado.` : `Unexpected error.`);
         }
       });
     }
@@ -97,22 +107,26 @@ export class ContentComponent {
   }
 
   processOriginAndDestinyData(originData: any, destinyData: any, oldestDate: string) {
-    this.originParity.set(originData.rates[0].mid);
-    this.destinyParity.set(destinyData.rates[0].mid);
+    /* this.originParity.set(originData.rates[0].mid);
+    this.destinyParity.set(destinyData.rates[0].mid); */
 
-    const parityValue = (this.originParity() / this.destinyParity()).toFixed(4);
-    this.parityTextSecondPart.set(this.languageSelected() === `br` ? parityValue.replace(".", ",") : parityValue);
+    const parityValue = (originData.rates[0].mid / destinyData.rates[0].mid).toFixed(4);
+    this.parity.set(parityValue);
 
-    this.effectiveDateSecondPart.set(this.languageSelected() === `br` ? this.convertDateFormat(oldestDate) : this.convertDateFormat(oldestDate));
+    this.effectiveDate.set(this.getDateObject(oldestDate));
   }
 
-  convertDateFormat(dateStr: string): string {
+  convertDateFormat(effectiveDate: any): string {
+    return this.languageSelected() === `br` ? `${effectiveDate.day}/${effectiveDate.month}/${effectiveDate.year}` : `${effectiveDate.month}/${effectiveDate.day}/${effectiveDate.year}`;
+  }
+
+  getDateObject(dateStr: string): any {
     const date = new Date(dateStr);
-  
-    const day = String(date.getDate() + 1).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-  
-    return this.languageSelected() === `br` ? `${day}/${month}/${year}` : `${month}/${day}/${year}`;
+
+    return new Object ({
+      day: String(date.getDate() + 1).padStart(2, '0'),
+      month: String(date.getMonth() + 1).padStart(2, '0'),
+      year: date.getFullYear()
+    })
   }
 }

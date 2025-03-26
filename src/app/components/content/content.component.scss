@@ -1,12 +1,12 @@
 @use '../../variables.scss' as v;
 
-.instruction-text, .parity-text, .effective-date-text {
+.instruction-text, .parity-text, .effective-date-text, .source-text {
     font-weight: 550;
     text-align: center;
     color: v.$dark-color;
 }
 
-.instruction-text::selection, .parity-text::selection, .effective-date-text::selection {
+.instruction-text::selection, .parity-text::selection, .effective-date-text::selection, .source-text::selection {
     background-color: v.$primary-color;
     color: v.$light-color;
 }
@@ -65,6 +65,19 @@
     margin: 20px 0 10px;
 }
 
-.effective-date-text {
+.effective-date-text, .source-text {
     margin: 10px 0;
+}
+
+.source-text {
+    font-size: 15px;
+}
+
+.source-link {
+    color: v.$primary-color;
+    text-decoration: none;
+}
+
+.source-link:hover {
+    color: v.$primary-color-darker;
 }

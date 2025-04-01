@@ -13,9 +13,22 @@
 }
 
 .outer-language-selector {
-    height: 50px;
     display: flex;
     flex-direction: row;
+}
+
+.outer-language-selector-flags, .outer-language-selector-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.outer-language-selector-flags {
+    position: relative;
+}
+
+.outer-language-selector-container {
+    position: absolute;
+    z-index: 1;
 }
 
 @media (orientation: landscape) {
@@ -32,64 +45,17 @@
     }
 }
 
-.language-selector {
-    -webkit-animation: shrink 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: shrink 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
-
-.language-selector-hovered {
-    -webkit-animation: expand 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: expand 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-    cursor: pointer;
-}
-
-.language-selector, .language-selector-hovered {
+.language-selector-main-flag, .language-selector-picker {
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.language-selector::selection {
+.language-selector-main-flag:hover, .language-selector-picker:hover {
+    cursor: pointer;
+}
+
+.language-selector-main-flag::selection {
     background-color: v.$primary-color;
-}
-
-@-webkit-keyframes expand {
-    0% {
-        width: 50px;
-        height: 50px;
-    }
-    100% {
-        width: 55px;
-        height: 55px;
-    }
-}
-@keyframes expand {
-    0% {
-        width: 50px;
-        height: 50px;
-    }
-    100% {
-        width: 55px;
-        height: 55px;
-    }
-}
-
-@-webkit-keyframes shrink {
-    0% {
-        width: 55px;
-        height: 55px;
-    }
-    100% {
-        width: 50px;
-        height: 50px;
-    }
-}
-@keyframes shrink {
-    0% {
-        width: 55px;
-        height: 55px;
-    }
-    100% {
-        width: 50px;
-        height: 50px;
-    }
 }

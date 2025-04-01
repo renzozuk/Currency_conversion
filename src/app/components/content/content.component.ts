@@ -143,6 +143,5 @@ export class ContentComponent {
 
     this.selectedOriginCurrency = b;
     this.selectedDestinyCurrency = a;
-    console.log("test")
   }
 }

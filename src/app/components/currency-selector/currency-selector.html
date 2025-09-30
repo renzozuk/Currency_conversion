@@ -1,8 +1,8 @@
 <select 
-    class="w-[9.375rem] h-[3.125rem] pl-2 rounded-lg border-[0.15rem] border-solid border-dark-color [&>option:checked]:bg-primary-color [&>option:checked]:text-light-color" 
+    class="w-[9.375rem] h-[3.125rem] pl-[0.625rem] rounded-lg text-[1.2em] border-[0.15rem] border-solid border-dark-color [&>option:checked]:bg-primary-color [&>option:checked]:text-light-color" 
     [(ngModel)]="selectedCurrency"
     (ngModelChange)="selectedCurrencyChange.emit($event)">
     @for (currency of currencies; track currency) {
-        <option class="currency-option" [value]="currency">{{ currency }}</option>
+        <option class="text-[1.025em] text-center" [value]="currency">{{ currency }}</option>
     }
 </select>

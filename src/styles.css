@@ -1,6 +1,16 @@
 @import "tailwindcss";
 
-body {
+@theme {
+    --color-light-color: #eee;
+    --color-light-color-1: #ddd;
+    --color-dark-color: #111;
+    --color-dark-color-1: #222;
+    --color-primary-color: #04ab94;
+    --color-primary-color-lighter: #02ceb3;
+    --color-primary-color-darker: #018372;
+}
+
+/* body {
     margin: 0;
     background-color: #eee;
-}
+} */

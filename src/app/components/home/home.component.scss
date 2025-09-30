@@ -1,61 +1,7 @@
-@use '../../variables.scss' as v;
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 .home {
-    height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 500;
     font-style: normal;
-}
-
-.outer-language-selector {
-    display: flex;
-    flex-direction: row;
-}
-
-.outer-language-selector-flags, .outer-language-selector-container {
-    display: flex;
-    flex-direction: column;
-}
-
-.outer-language-selector-flags {
-    position: relative;
-}
-
-.outer-language-selector-container {
-    position: absolute;
-    z-index: 1;
-}
-
-@media (orientation: landscape) {
-    .outer-language-selector {
-        padding: 15px 20px 0;
-        justify-content: flex-end;
-    }
-}
-
-@media (orientation: portrait) {
-    .outer-language-selector {
-        padding: 15px 0 0;
-        justify-content: center;
-    }
-}
-
-.language-selector-main-flag, .language-selector-picker {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.language-selector-main-flag:hover, .language-selector-picker:hover {
-    cursor: pointer;
-}
-
-.language-selector-main-flag::selection {
-    background-color: v.$primary-color;
 }

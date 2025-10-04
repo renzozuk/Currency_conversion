@@ -5,9 +5,9 @@
             [currencies]="originCurrencies()" 
             [(selectedCurrency)]="selectedOriginCurrency">
         </app-currency-selector>
-        <button class="w-[50px] h-[50px] mx-[10px] rounded-[12.5px] border-none bg-primary-color hover:bg-primary-color-darker hover:cursor-pointer flex items-center justify-center" (mouseenter)="enterSwitchButton()" (mouseleave)="leaveSwitchButton()" (click)="switchCurrencies()">
+        <!-- <button class="w-[50px] h-[50px] mx-[10px] rounded-[12.5px] border-none bg-primary-color hover:bg-primary-color-darker hover:cursor-pointer flex items-center justify-center" (mouseenter)="enterSwitchButton()" (mouseleave)="leaveSwitchButton()" (click)="switchCurrencies()">
             <img class="{{(isSwitchButtonHovered() ? `switch-image-hovered` : `switch-image-not-hovered`)}}" src="switch_arrow.png"/>
-        </button>
+        </button> -->
         <app-currency-selector 
             [currencies]="destinyCurrencies()" 
             [(selectedCurrency)]="selectedDestinyCurrency">
